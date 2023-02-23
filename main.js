@@ -1,20 +1,39 @@
-//Pregunto si quiere el huevo frito.
-//Si me dice que si, lo frio, si me dice que no, lo hago hervido.
-//Una vez cocinado le pregunto si quiere sal en el huevo.
-//Si me dice que no lo sirvo en el Plato. Si me dice que si le hecho sal y después lo sirvo en el plato.
+//precios de los helados
+//Añadir los precios de los helados
+var precios = [['Bonice', 400],
+              ['Palito de helado de agua', 1000],
+              ['Palito de helado de crema', 2200],
+              ['Bombón helado con arequipe', 1500],
+              ['Bombón helado con chispas de chocolate', 2500],
+              ['Bombón helado con fresas', 2800],
+              ['Medio litro de helado', 2000]];
 
-let frito = confirm("Quieres un huevo frito?");
-let mensaje = "En el plato esta servido ";
-if (frito) {
-    hervido = false;
-    mensaje += "un huevo frito";
-} else {
-    mensaje += "un huevo cocido";
+//Dinero que tienen los tres usuarios
+var usrs = [];
+var nombre = [];
+for (let i=0; i<3; i++) {
+   usrs.push(Number(prompt(`Cuanto dinero tiene el Usuario ${i} ?`)));
+   nombre.push(prompt(`Cuál es el nombre del Usuario ${i} ?`));
 }
-let sal = confirm("Quiere sal en el huevo?");
-if (sal) {
-    mensaje += ", y tiene sal";
-} else {
-    mensaje += ", y no tiene sal"
+// Buscar que pueden comprar
+//clasificamos los precion de menor a mayor
+precios.sort((a, b) => a[1] - b[1]);
+var compra = [];
+//buscamos que puede comprar
+for (let j=0; j<precios.length; j++) {
+    console.log(precios[j]);
 }
-console.log(mensaje); 
+for (let i=0; i<usrs.length; i++) {
+    let mayor = 0;
+    for (let j=0; j<precios.length; j++) {
+        if (usrs[i] >= precios[j][1]) {
+            mayor = j;
+        } else {
+            break;
+        }
+    }
+    compra.push({Nombre: nombre[i], Helado: precios[mayor][0], Valor:precios[mayor][1] , Vueltos: usrs[i]-precios[mayor][1]});
+}
+
+console.table(compra);
+
